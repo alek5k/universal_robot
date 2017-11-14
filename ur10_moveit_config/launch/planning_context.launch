@@ -18,6 +18,8 @@
   <!-- Load updated joint limits (override information from URDF) -->
   <group ns="$(arg robot_description)_planning">
     <rosparam command="load" file="$(find ur10_moveit_config)/config/joint_limits.yaml"/>
+    <!--<rosparam command="load" file="$(find ur10_moveit_config)/config/paddings.yaml" /> --><!-- paddings were added due to a github issue for unstable robot movement. Removed as this was not our issue -->
+
   </group>
 
   <!-- Load default settings for kinematics; these settings are overridden by settings in a node's namespace -->

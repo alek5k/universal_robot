@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
 <!--
@@ -10,8 +10,6 @@
   <xacro:include filename="$(find ur_description)/urdf/ur.gazebo.xacro" />
 
   <xacro:property name="pi" value="3.14159265" />
-  <xacro:property name="ee_length" value="0.23" /> <!-- 0.2 is good -->
-  <xacro:property name="ee_radius" value="0.01" /> <!-- 0.01 is good -->
 
   <!-- Inertia parameters -->
   <xacro:property name="base_mass" value="4.0" />  <!-- This mass might be incorrect -->
@@ -21,24 +19,6 @@
   <xacro:property name="wrist_1_mass" value="1.96" />
   <xacro:property name="wrist_2_mass" value="1.96" />
   <xacro:property name="wrist_3_mass" value="0.202" />
-  <xacro:property name="ee_mass" value="0.5" /> <!-- added by aleks -->
-
-
- <!-- added by aleks -->
-  <xacro:property name="shoulder_pan_joint_velocity" value="2.16" /> 
-  <xacro:property name="shoulder_lift_joint_velocity" value="2.16" />
-  <xacro:property name="elbow_joint_velocity" value="3.15" />
-  <xacro:property name="wrist_1_joint_velocity" value="3.2" />
-  <xacro:property name="wrist_2_joint_velocity" value="3.2" />
-  <xacro:property name="wrist_3_joint_velocity" value="3.2" />
-
-
-
-
-
-
-
-
 
   <!-- These parameters are borrowed from the urcontrol.conf file
        but are not verified for the correct permutation.
@@ -71,7 +51,6 @@
   <xacro:property name="wrist_1_length" value="${ur10_d4 - elbow_offset - shoulder_offset}" />
   <xacro:property name="wrist_2_length" value="${ur10_d5}" />
   <xacro:property name="wrist_3_length" value="${ur10_d6}" />
-  
 
   <xacro:macro name="cylinder_inertial" params="radius length mass *origin">
     <inertial>
@@ -117,10 +96,10 @@
       <origin xyz="0.0 0.0 ${shoulder_height}" rpy="0.0 0.0 0.0" />
       <axis xyz="0 0 1" />
       <xacro:unless value="${joint_limited}">
-        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="330.0" velocity="${shoulder_pan_joint_velocity}"/>
+        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="330.0" velocity="2.16"/>
       </xacro:unless>
       <xacro:if value="${joint_limited}">
-        <limit lower="${shoulder_pan_lower_limit}" upper="${shoulder_pan_upper_limit}" effort="330.0" velocity="${shoulder_pan_joint_velocity}"/>
+        <limit lower="${shoulder_pan_lower_limit}" upper="${shoulder_pan_upper_limit}" effort="330.0" velocity="2.16"/>
       </xacro:if>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
@@ -150,10 +129,10 @@
       <origin xyz="0.0 ${shoulder_offset} 0.0" rpy="0.0 ${pi / 2.0} 0.0" />
       <axis xyz="0 1 0" />
       <xacro:unless value="${joint_limited}">
-        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="330.0" velocity="${shoulder_lift_joint_velocity}"/>
+        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="330.0" velocity="2.16"/>
       </xacro:unless>
       <xacro:if value="${joint_limited}">
-        <limit lower="${shoulder_lift_lower_limit}" upper="${shoulder_lift_upper_limit}" effort="330.0" velocity="${shoulder_lift_joint_velocity}"/>
+        <limit lower="${shoulder_lift_lower_limit}" upper="${shoulder_lift_upper_limit}" effort="330.0" velocity="2.16"/>
       </xacro:if>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
@@ -183,10 +162,10 @@
       <origin xyz="0.0 ${elbow_offset} ${upper_arm_length}" rpy="0.0 0.0 0.0" />
       <axis xyz="0 1 0" />
       <xacro:unless value="${joint_limited}">
-        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="150.0" velocity="${elbow_joint_velocity}"/>
+        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="150.0" velocity="3.15"/>
       </xacro:unless>
       <xacro:if value="${joint_limited}">
-        <limit lower="${elbow_joint_lower_limit}" upper="${elbow_joint_upper_limit}" effort="150.0" velocity="${elbow_joint_velocity}"/>
+        <limit lower="${elbow_joint_lower_limit}" upper="${elbow_joint_upper_limit}" effort="150.0" velocity="3.15"/>
       </xacro:if>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
@@ -216,10 +195,10 @@
       <origin xyz="0.0 0.0 ${forearm_length}" rpy="0.0 ${pi / 2.0} 0.0" />
       <axis xyz="0 1 0" />
       <xacro:unless value="${joint_limited}">
-        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="54.0" velocity="${wrist_1_joint_velocity}"/>
+        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="54.0" velocity="3.2"/>
       </xacro:unless>
       <xacro:if value="${joint_limited}">
-        <limit lower="${wrist_1_lower_limit}" upper="${wrist_1_upper_limit}" effort="54.0" velocity="${wrist_1_joint_velocity}"/>
+        <limit lower="${wrist_1_lower_limit}" upper="${wrist_1_upper_limit}" effort="54.0" velocity="3.2"/>
       </xacro:if>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
@@ -249,10 +228,10 @@
       <origin xyz="0.0 ${wrist_1_length} 0.0" rpy="0.0 0.0 0.0" />
       <axis xyz="0 0 1" />
       <xacro:unless value="${joint_limited}">
-        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="54.0" velocity="${wrist_2_joint_velocity}"/>
+        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="54.0" velocity="3.2"/>
       </xacro:unless>
       <xacro:if value="${joint_limited}">
-        <limit lower="${wrist_2_lower_limit}" upper="${wrist_2_upper_limit}" effort="54.0" velocity="${wrist_2_joint_velocity}"/>
+        <limit lower="${wrist_2_lower_limit}" upper="${wrist_2_upper_limit}" effort="54.0" velocity="3.2"/>
       </xacro:if>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
@@ -282,10 +261,10 @@
       <origin xyz="0.0 0.0 ${wrist_2_length}" rpy="0.0 0.0 0.0" />
       <axis xyz="0 1 0" />
       <xacro:unless value="${joint_limited}">
-        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="54.0" velocity="${wrist_3_joint_velocity}"/>
+        <limit lower="${-2.0 * pi}" upper="${2.0 * pi}" effort="54.0" velocity="3.2"/>
       </xacro:unless>
       <xacro:if value="${joint_limited}">
-        <limit lower="${wrist_3_lower_limit}" upper="${wrist_3_upper_limit}" effort="54.0" velocity="${wrist_3_joint_velocity}"/>
+        <limit lower="${wrist_3_lower_limit}" upper="${wrist_3_upper_limit}" effort="54.0" velocity="3.2"/>
       </xacro:if>
       <dynamics damping="0.0" friction="0.0"/>
     </joint>
@@ -315,49 +294,12 @@
       <origin xyz="0.0 ${wrist_3_length} 0.0" rpy="0.0 0.0 ${pi/2.0}" />
     </joint>
 
-    <!-- modified by aleks. Was previously a point, turned it into a cylinder -->
     <link name="${prefix}ee_link">
-      <visual>
-        <geometry>
-          <cylinder length="${ee_length}" radius="${ee_radius}"/> 
-        </geometry>
-        <origin rpy="0 ${pi/2.0} 0" xyz="${ee_length/2.0} 0 0"/> 
-        <material name="LightGrey">
-          <color rgba="0.7 0.7 0.7 1.0"/>
-        </material>
-      </visual>
-
       <collision>
         <geometry>
-          <cylinder length="${ee_length}" radius="${ee_radius}"/>
+          <box size="0.01 0.01 0.01"/>
         </geometry>
-        <origin rpy="0 ${pi/2.0} 0" xyz="${ee_length/2.0} 0 0"/>
-      </collision>
-
-      <xacro:cylinder_inertial radius="${ee_radius}" length="${ee_length}" mass="${ee_mass}">
-        <origin rpy="0 ${pi/2.0} 0" xyz="${ee_length/2.0} 0 0"/> 
-      </xacro:cylinder_inertial>
-    </link>
-
-    <!-- added by aleks -->
-    <joint name="${prefix}ee_point_joint" type="fixed">
-      <parent link="${prefix}ee_link" />
-      <child link= "${prefix}ee_point" />
-      <origin rpy="0.0 0.0 0.0" xyz="${ee_length+0.002} 0.0 0.0"  />
-    </joint>
-
-    <link name="${prefix}ee_point">
-      <visual>
-        <geometry>
-          <box size="0.001 0.001 0.001"/>
-        </geometry>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
-      </visual>
-      <collision>
-        <geometry>
-          <box size="0.001 0.001 0.001"/>
-        </geometry>
-        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <origin rpy="0 0 0" xyz="-0.01 0 0"/>
       </collision>
     </link>
 
