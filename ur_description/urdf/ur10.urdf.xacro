@@ -10,7 +10,7 @@
   <xacro:include filename="$(find ur_description)/urdf/ur.gazebo.xacro" />
 
   <xacro:property name="pi" value="3.14159265" />
-  <xacro:property name="ee_length" value="0.23" /> <!-- 0.2 is good -->
+  <xacro:property name="ee_length" value="0.23" /> <!-- 0.2 is end effector metal, 0.3 for vacuum on the end -->
   <xacro:property name="ee_radius" value="0.01" /> <!-- 0.01 is good -->
 
   <!-- Inertia parameters -->
